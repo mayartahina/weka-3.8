@@ -22,11 +22,7 @@
 package weka.attributeSelection;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.BitSet;
-import java.util.Enumeration;
-import java.util.Hashtable;
-import java.util.Vector;
+import java.util.*;
 
 import weka.core.Instances;
 import weka.core.Option;
@@ -347,6 +343,8 @@ public class BestFirst extends ASSearch implements OptionHandler,
         + "\n\tExpressed as a multiple of the number of"
         + "\n\tattributes in the data set. (default = 1)", "S", 1, "-S <num>"));
 
+    newVector.addAll(Collections.list(super.listOptions()));
+
     return newVector.elements();
   }
 
@@ -419,6 +417,8 @@ public class BestFirst extends ASSearch implements OptionHandler,
     }
 
     m_debug = Utils.getFlag('Z', options);
+
+    super.setOptions(options);
   }
 
   /**
@@ -464,7 +464,7 @@ public class BestFirst extends ASSearch implements OptionHandler,
    */
   public String startSetTipText() {
     return "Set the start point for the search. This is specified as a comma "
-      + "seperated list off attribute indexes starting at 1. It can include "
+      + "separated list off attribute indexes starting at 1. It can include "
       + "ranges. Eg. 1,2,5-9,17.";
   }
 
@@ -577,6 +577,8 @@ public class BestFirst extends ASSearch implements OptionHandler,
     options.add("-N");
     options.add("" + m_maxStale);
 
+    Collections.addAll(options, super.getOptions());
+
     return options.toArray(new String[0]);
   }
 
@@ -587,7 +589,7 @@ public class BestFirst extends ASSearch implements OptionHandler,
    * can be specified in different ways from the command line---eg 1,2,3 == 1-3.
    * This is to ensure that stuff that is stored in a database is comparable.
    * 
-   * @return a comma seperated list of individual attribute numbers as a String
+   * @return a comma separated list of individual attribute numbers as a String
    */
   private String startSetToString() {
     StringBuffer FString = new StringBuffer();

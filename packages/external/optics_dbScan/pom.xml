@@ -46,9 +46,9 @@
   <mailingLists>
     <mailingList>
       <name>wekalist</name>
-      <subscribe>https://list.scms.waikato.ac.nz/mailman/listinfo/wekalist</subscribe>
-      <unsubscribe>https://list.scms.waikato.ac.nz/mailman/listinfo/wekalist</unsubscribe>
-      <archive>https://list.scms.waikato.ac.nz/mailman/htdig/wekalist/</archive>
+      <subscribe>https://list.waikato.ac.nz/postorius/lists/wekalist.list.waikato.ac.nz/</subscribe>
+      <unsubscribe>https://list.waikato.ac.nz/postorius/lists/wekalist.list.waikato.ac.nz/</unsubscribe>
+      <archive>https://list.waikato.ac.nz/hyperkitty/list/wekalist@list.waikato.ac.nz/</archive>
     </mailingList>
   </mailingLists>
 
@@ -120,7 +120,7 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>3.8.2</version>
+      <version>4.13.1</version>
       <scope>test</scope>
     </dependency>
   </dependencies>

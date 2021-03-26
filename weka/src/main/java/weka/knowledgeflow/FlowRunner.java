@@ -165,6 +165,10 @@ public class FlowRunner implements FlowExecutor, CommandlineRunnable {
     return m_execEnv.getSettings();
   }
 
+  public void setEnvironment(Environment env) {
+    m_execEnv.setEnvironmentVariables(env);
+  }
+
   /**
    * Main method for executing the FlowRunner
    *
@@ -209,6 +213,9 @@ public class FlowRunner implements FlowExecutor, CommandlineRunnable {
 
       String fileName = args[0];
       args[0] = "";
+      Environment env = new Environment();
+      String flowF = new File(fileName).getAbsoluteFile().getParent();
+      env.addVariable("Internal.knowledgeflow.directory", flowF);
       fr.setLaunchStartPointsSequentially(Utils.getFlag("s", args));
 
       Flow flowToRun = Flow.loadFlow(new File(fileName), new SimpleLogger());

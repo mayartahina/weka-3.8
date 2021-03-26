@@ -895,8 +895,10 @@ public class PreprocessPanel extends AbstractPerspective implements
               addUndoPoint();
               m_AttVisualizePanel.setColoringIndex(copy.classIndex());
               // if class was not set before, reset it again after use of filter
-              if (m_Instances.classIndex() < 0)
-                newInstances.setClassIndex(-1);
+              /* if (m_Instances.classIndex() < 0)
+                newInstances.setClassIndex(-1); */
+
+              newInstances.setClassIndex(-1);
               m_Instances = newInstances;
               setInstances(m_Instances);
               if (m_Log instanceof TaskLogger) {
@@ -1151,8 +1153,12 @@ public class PreprocessPanel extends AbstractPerspective implements
                 // generate
                 generatorPanel.execute(showOutput);
                 boolean generated = (generatorPanel.getInstances() != null);
-                if (generated)
-                  setInstances(generatorPanel.getInstances());
+                if (generated) {
+                  Instances genInst = generatorPanel.getInstances();
+                  // unset any class, to be consistent with filter behaviour
+                  genInst.setClassIndex(-1);
+                  setInstances(genInst);
+                }
 
                 // close dialog
                 dialog.dispose();

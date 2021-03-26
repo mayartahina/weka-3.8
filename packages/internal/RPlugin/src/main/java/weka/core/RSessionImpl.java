@@ -62,7 +62,7 @@ import org.rosuda.REngine.REngineOutputInterface;
  *
  * @author Mark Hall (mhall{[at]}pentaho{[dot]}com)
  * @author Eibe Frank
- * @version $Revision: 14981 $
+ * @version $Revision: 15631 $
  */
 public class RSessionImpl implements RSessionAPI, REngineCallbacks,
                                      REngineOutputInterface {
@@ -109,7 +109,7 @@ public class RSessionImpl implements RSessionAPI, REngineCallbacks,
         // does not try and start a tcl/tk interface for mirror selection!
         System.err.println("Setting a default package mirror in R...");
         s_engine.parseAndEval("local({r <- getOption(\"repos\"); "
-          + "r[\"CRAN\"] <- \"http://cloud.r-project.org\"; "
+          + "r[\"CRAN\"] <- \"https://cloud.r-project.org\"; "
           + "options(repos=r)})");
 
         s_engine.parseAndEval("local(options(help_type = \"html\"))");
@@ -498,7 +498,6 @@ public class RSessionImpl implements RSessionAPI, REngineCallbacks,
       e.printStackTrace();
       return false;
     }
-    System.err.println("Successfully loaded library '" + libraryName + "'.");
 
     return true;
   }
@@ -813,6 +812,10 @@ public class RSessionImpl implements RSessionAPI, REngineCallbacks,
   @Override
   public void RWriteConsole(REngine eng, String text, int oType) {
     if (oType == 0) {
+      if (System.getProperty("os.name").contains("Windows")) {
+        // Remove extraneous characters on Windows
+        text = text.replaceAll("(\u0002\u00FF\u00FE)(.*?)(\u0003\u00FF\u00FE)","$2");
+      }
       m_consoleBuffer.add(text);
     }
     String t = "";

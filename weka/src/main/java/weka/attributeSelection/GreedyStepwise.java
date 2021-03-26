@@ -21,11 +21,7 @@
 
 package weka.attributeSelection;
 
-import java.util.ArrayList;
-import java.util.BitSet;
-import java.util.Enumeration;
-import java.util.List;
-import java.util.Vector;
+import java.util.*;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -357,7 +353,7 @@ public class GreedyStepwise extends ASSearch implements RankedOutputSearch,
    */
   public String startSetTipText() {
     return "Set the start point for the search. This is specified as a comma "
-      + "seperated list off attribute indexes starting at 1. It can include "
+      + "separated list off attribute indexes starting at 1. It can include "
       + "ranges. Eg. 1,2,5-9,17.";
   }
 
@@ -498,6 +494,8 @@ public class GreedyStepwise extends ASSearch implements RankedOutputSearch,
 
     newVector.addElement(new Option("\tPrint debugging output", "D", 0, "-D"));
 
+    newVector.addAll(Collections.list(super.listOptions()));
+
     return newVector.elements();
 
   }
@@ -592,6 +590,8 @@ public class GreedyStepwise extends ASSearch implements RankedOutputSearch,
     }
 
     setDebuggingOutput(Utils.getFlag('D', options));
+
+    super.setOptions(options);
   }
 
   /**
@@ -633,6 +633,8 @@ public class GreedyStepwise extends ASSearch implements RankedOutputSearch,
       options.add("-D");
     }
 
+    Collections.addAll(options, super.getOptions());
+
     return options.toArray(new String[0]);
   }
 
@@ -643,7 +645,7 @@ public class GreedyStepwise extends ASSearch implements RankedOutputSearch,
    * can be specified in different ways from the command line---eg 1,2,3 == 1-3.
    * This is to ensure that stuff that is stored in a database is comparable.
    * 
-   * @return a comma seperated list of individual attribute numbers as a String
+   * @return a comma separated list of individual attribute numbers as a String
    */
   protected String startSetToString() {
     StringBuffer FString = new StringBuffer();

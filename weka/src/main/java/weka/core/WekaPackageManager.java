@@ -197,7 +197,7 @@ public class WekaPackageManager {
 
   /** Primary repository */
   private static String PRIMARY_REPOSITORY =
-    "http://weka.sourceforge.net/packageMetaData";
+    "https://weka.sourceforge.io/packageMetaData";
 
   /** Backup mirror of the repository */
   private static String REP_MIRROR;
@@ -2963,6 +2963,10 @@ public class WekaPackageManager {
   }
 
   public static Exception startupCheck(boolean force, PrintStream... progress) {
+
+    if (m_offline) {
+      return null;
+    }
 
     Exception problem = null;
     BufferedReader br = null;

@@ -5,7 +5,7 @@
 
   <groupId>nz.ac.waikato.cms.weka</groupId>
   <artifactId>wekaPython</artifactId>
-  <version>1.0.10-SNAPSHOT</version>
+  <version>1.0.13-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>wekaPython</name>
@@ -105,9 +105,14 @@ Integration with CPython for Weka. Python version 2.7.x or higher is required. A
     </dependency>
 
     <dependency>
-      <groupId>io.fastjson</groupId>
-      <artifactId>boon</artifactId>
-      <version>0.34</version>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>2.10.1</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.module</groupId>
+      <artifactId>jackson-module-parameter-names</artifactId>
+      <version>2.10.1</version>
     </dependency>
 
     <dependency>
@@ -133,7 +138,7 @@ Integration with CPython for Weka. Python version 2.7.x or higher is required. A
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>3.8.2</version>
+      <version>4.13.1</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -212,8 +217,8 @@ Integration with CPython for Weka. Python version 2.7.x or higher is required. A
           <artifactId>maven-compiler-plugin</artifactId>
           <version>2.0.2</version>
           <configuration>
-            <source>1.6</source>
-            <target>1.6</target>
+            <source>1.8</source>
+            <target>1.8</target>
           </configuration>
         </plugin>
 
@@ -307,12 +312,13 @@ Integration with CPython for Weka. Python version 2.7.x or higher is required. A
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
-        <version>2.8.1</version>
+        <version>3.1.1</version>
         <configuration>
           <maxmemory>256m</maxmemory>
           <subpackages>weka:org</subpackages>
           <show>public</show>
           <outputDirectory>${project.basedir}/doc</outputDirectory>
+	  <doclint>none</doclint>
         </configuration>
         <executions>
           <execution>
